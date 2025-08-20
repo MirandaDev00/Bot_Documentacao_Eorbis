@@ -1,15 +1,32 @@
+import os
+import requests
 from bs4 import BeautifulSoup
 from datetime import datetime
-import os
 
 input_dir = "Results/output_md/"
 output_dir = "Results/output_transformer/"
-versao_padrao = "1.0.0"
+versao_url = "http://192.168.99.183:8585/eorbis/"
+versao_fallback = "1.0.0"
+log_versao_file = "Results/versao.txt"
 
 os.makedirs(output_dir, exist_ok=True)
 
+def obter_versao(url):
+    try:
+        resp = requests.get(url, timeout=5)
+        resp.raise_for_status()
+        soup = BeautifulSoup(resp.text, "html.parser")
+        div = soup.find("div", class_="softgray")
+        if div and "Versão:" in div.text:
+            versao = div.text.strip().split("Versão:")[-1].strip()
+            with open(log_versao_file, "w", encoding="utf-8") as f:
+                f.write(versao)
+            return versao
+    except Exception as e:
+        print(f"[WARN] Não foi possível obter versão do E-Orbis: {e}")
+    return versao_fallback
 
-def transformar_html(arquivo_entrada, arquivo_saida, versao=versao_padrao):
+def transformar_html(arquivo_entrada, arquivo_saida, versao):
     with open(arquivo_entrada, "r", encoding="utf-8") as f:
         conteudo = f.read()
 
@@ -22,6 +39,7 @@ def transformar_html(arquivo_entrada, arquivo_saida, versao=versao_padrao):
         soup.body.insert(0, cabecalho)
     else:
         soup.insert(0, cabecalho)
+
 
     titulo = soup.find("h1")
     if titulo:
@@ -62,9 +80,11 @@ def transformar_html(arquivo_entrada, arquivo_saida, versao=versao_padrao):
 
     print(f"✅ Transformado: {arquivo_saida}")
 
+if __name__ == "__main__":
+    versao_atual = obter_versao(versao_url)
 
-for arquivo in os.listdir(input_dir):
-    if arquivo.endswith(".html"):
-        caminho_entrada = os.path.join(input_dir, arquivo)
-        caminho_saida = os.path.join(output_dir, arquivo)
-        transformar_html(caminho_entrada, caminho_saida, versao=versao_padrao)
+    for arquivo in os.listdir(input_dir):
+        if arquivo.endswith(".html"):
+            caminho_entrada = os.path.join(input_dir, arquivo)
+            caminho_saida = os.path.join(output_dir, arquivo)
+            transformar_html(caminho_entrada, caminho_saida, versao_atual)
