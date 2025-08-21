@@ -7,7 +7,10 @@ input_dir = "Results/output_md/"
 output_dir = "Results/output_transformer/"
 versao_url = "http://192.168.99.183:8585/eorbis/"
 versao_fallback = "1.0.0"
-log_versao_file = "Results/versao.txt"
+log_versao_file = "Logs/versao.txt"
+img_padrao_eorbis = "Bot_/Assets/logo eorbis.png"
+img_padrao_metaprime = "Bot_/Assets/logo metaprime.png"
+
 
 os.makedirs(output_dir, exist_ok=True)
 
