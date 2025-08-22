@@ -15,12 +15,12 @@ URL_BASE_IMAGENS = "https://raw.githubusercontent.com/MirandaDev00/Bot_Documenta
 THEMES = {
     'light': {
         "bg": "#f7f8fa", "panel": "#ffffff", "accent": "#2563eb", "accent2": "#10b981",
-        "danger": "#ef4444", "warn": "#f59e0b", "text": "#0f172a", "muted": "#64748b",
+        "danger": "#ff0000", "warn": "#ffa200", "text": "#000000", "muted": "#64748b",
         "border": "#e5e7eb", "list_sel": "#dbeafe", "code_bg": "#f0f1f3"
     },
     'dark': {
-        "bg": "#0B1220", "panel": "#101826", "accent": "#60A5FA", "accent2": "#34D399",
-        "danger": "#F87171", "warn": "#FBBF24", "text": "#E5E7EB", "muted": "#94A3B8",
-        "border": "#1F2A3A", "list_sel": "#1f2937", "code_bg": "#141C2B"
+        "bg": "#000000", "panel": "#000000", "accent": "#0073FF", "accent2": "#00FFA2",
+        "danger": "#FF0000", "warn": "#FFB700", "text": "#FFFFFF", "muted": "#94A3B8",
+        "border": "#FFFFFF", "list_sel": "#000000", "code_bg": "#000000"
     }
 }
